@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/file")
 public class FileController {
 
     @Autowired
@@ -80,15 +81,9 @@ public class FileController {
     /**
      * Delete a file with name <b>fileName</b> at location <b>storagePath</b> and move it to the <b>Trash</b>.
      */
-//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-//    public ResponseEntity<String> deleteDir(@RequestParam("fileName") @NotNull String fileName,
-//                                            @RequestParam("storagePath") String storagePath)
-//    {
-//        return fileService.deleteFile(fileName, storagePath);
-//    }
     @RequestMapping(value = "/deleteFiles", method = RequestMethod.POST)
     public ResponseEntity<String> deleteFiles(
-            @RequestParam("fileName") @NotNull List<String> fileNames,
+            @RequestParam("fileNames") @NotNull List<String> fileNames,
             @RequestParam("storagePath") String storagePath) {
         return fileService.deleteFiles(fileNames, storagePath);
     }
@@ -107,7 +102,7 @@ public class FileController {
      * Move a files with names in  <b>sourceFileNames</b> to <b>destinationDirName</b>.
      */
     @RequestMapping(value = "/moveFiles", method = RequestMethod.POST)
-    public ResponseEntity<String> moveDirectory(@RequestParam("sourceFileName") @NotNull List<String> sourceFileNames,
+    public ResponseEntity<String> moveDirectory(@RequestParam("sourceFileNames") @NotNull List<String> sourceFileNames,
                                                 @RequestParam("destinationDirName") String destinationDirName,
                                                 @RequestParam("storagePath") String storagePath) {
         return fileService.moveFiles(sourceFileNames, destinationDirName, storagePath);
